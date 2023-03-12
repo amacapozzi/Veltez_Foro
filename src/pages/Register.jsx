@@ -21,6 +21,7 @@ import {
   } from '@chakra-ui/react'
     import { Logo } from '../components/Logo'
     import { PasswordField } from '../components/PasswordField'
+    import {useIp} from "../hooks/useIp";
 
 
     const Register = () => {
@@ -31,9 +32,7 @@ import {
     const [error, setError] = useState();
     const [loading, setLoading] = useState(true);
     const inputRef = useRef(null);
-
-
-
+    const {ip} = useIp();
 
     const handleCloseSucces = (e) => {
         setSucces(false);
@@ -44,8 +43,8 @@ import {
     }
 
     const handleClick = async () => {
-        setLoading(true);
-        const response = await fetch(`http://localhost:3000/register?name=${name}&token=test`, {
+        setLoading(true); 
+        const response = await fetch(`http://localhost:3000/register?name=${name}&token=test&ip=${ip}`, {
             method: "POST",
             headers: {
                 'api-key': 'RTD/=HFnaakw3J6AOmoT2WCZmvKMayZLKqvrZ'
