@@ -1,0 +1,18 @@
+
+import './App.css'
+import React from 'react'
+import Router from './router/Routes'
+
+function App() {
+
+
+  return (
+    <div className="App">
+
+      <Router/>
+    
+    </div>
+  )
+}
+
+export default App
