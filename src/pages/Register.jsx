@@ -27,12 +27,16 @@ import {
     const Register = () => {
 
     const [name, setName] = useState();
-    const [acces, setAcces] = useState();
     const [succes, setSucces] = useState();
     const [error, setError] = useState();
+    const [acces, setAcces] = useState();
     const [loading, setLoading] = useState(true);
     const inputRef = useRef(null);
     const {ip} = useIp();
+
+    useEffect(() => {
+        document.title = "Register"
+    }, [])
 
     const handleCloseSucces = (e) => {
         setSucces(false);
@@ -42,9 +46,22 @@ import {
         setError(false);
     }
 
-    const handleClick = async () => {
+    const handleChange = (e) => {
+        setName(e.target.value);
+    }
+
+    const handleAcces = (e) => {
+        setAcces(e.target.value);
+    }
+
+
+    const handleSumbit = async (e) => {
+        e.preventDefault();
+        if (!name || !acces ) {
+          return setError("Enter user or access token")
+        } 
         setLoading(true); 
-        const response = await fetch(`http://localhost:3000/register?name=${name}&token=test&ip=${ip}`, {
+        const response = await fetch(`http://localhost:3000/register?name=${name}&token=${acces}&ip=${ip}`, {
             method: "POST",
             headers: {
                 'api-key': 'RTD/=HFnaakw3J6AOmoT2WCZmvKMayZLKqvrZ'
@@ -52,13 +69,6 @@ import {
         });
 
         const data = await response.json();
-
-
-        if(!name){
-            setError("Enter user or access token");
-            setLoading(false);
-            return false;
-        }
 
         if(data.error){
             setError(data.error);
@@ -81,7 +91,7 @@ import {
 
     return(
 
-        <Container
+        <Container onSubmit={handleSumbit} as="form"
 
         maxW="lg"
         py={{
@@ -148,12 +158,10 @@ import {
               <Stack spacing="5">
                 <FormControl>
                   <FormLabel>Name</FormLabel>
-                  <Input onChange={() => {
-                        setName(inputRef.current.value)
-                  }} ref={inputRef} id="name" type="text" />
+                  <Input onChange={handleChange} ref={inputRef} id="name" type="text" />
                 
                 </FormControl>
-                <PasswordField/>
+                <PasswordField onChange={handleAcces}/>
                 {error && <Alert status="error">
                 <AlertIcon />
                 <AlertTitle mr={2}>Error!</AlertTitle>
@@ -165,7 +173,7 @@ import {
                 {succes && <Alert status="success">
                 <AlertIcon />
                 <AlertTitle mr={2}>Success!</AlertTitle>
-                <AlertDescription>Logged in succesfully</AlertDescription>
+                <AlertDescription>Registered succesfully</AlertDescription>
                 <CloseButton onClick={handleCloseSucces} position="absolute" right="8px" top="8px" />
                 </Alert>
                 }
@@ -176,7 +184,7 @@ import {
                 
               </HStack>
               <Stack spacing="6">
-                <Button onClick={handleClick} color="primary">Sign up</Button>
+                <Button type="sumbit" color="primary">Sign up</Button>
                 <HStack>
                   <Divider />
                   <Text fontSize="sm" whiteSpace="nowrap" color="muted">
@@ -191,7 +199,7 @@ import {
         </Stack>
      
       </Container>
-     
+    
 
     )
 }

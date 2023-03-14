@@ -24,15 +24,18 @@ import {
 
 
 
-   const Login = ({acces}) => {
+   const Login = () => {
 
 
     const [name, setName] = useState();
-    const [loading, setLoading] = useState(true);
+    const [acces, setAcces] = useState();
     const [error, setError] = useState();
     const [succes, setSuuces] = useState();
     const inputRef = useRef(null);
-
+    
+    useEffect(() => {
+        document.title = "Login"
+    }, [])
 
     const handleCloseError = (e) => {
         setError(false)
@@ -42,50 +45,53 @@ import {
         setSuuces(false)
     }
 
-    useEffect(() => {
-        inputRef.current.focus();
-    }, [])
+    const handleChange = (e) => {
+        setName(e.target.value);
+    }
 
+    const handleChangeAcces = (e) => {
+        setAcces(e.target.value);
+    }
 
+    const handleSumbit = async (e) => {
+      e.preventDefault();
+      if (!name || !acces) {
+        return setError("Enter user or access token")
+      }
 
-        const handleLogin = async () => {
-            setLoading(true)
-            const response = await fetch(`http://localhost:3000/login?name=${name}&password=${acces}`, {
-                method: "POST",
-                headers: {
-                    'api-key': 'RTD/=HFnaakw3J6AOmoT2WCZmvKMayZLKqvrZ'
-                }
-            })
+      try {
 
-            if(!name){
-                setError("Please fill all the fields")
-                setLoading(false)
-                return false;
-            }
+        const response = await fetch(`http://localhost:3000/login?name=${name}&password=${acces}`, {
+          method: "POST",
+          headers: {
+              'api-key': 'RTD/=HFnaakw3J6AOmoT2WCZmvKMayZLKqvrZ'
+          }
+      })
 
-            const data = await response.json();
-            if(data.error){
-                setError(data.error)
-                setLoading(false)
-                return false;
-            }
+      const data = await response.json();
+      if(data.error){
+        setError(data.error);
+      }
 
-            if(data.succes){
-                setSuuces(data.succes)
-                setLoading(false)
-                localStorage.setItem('token', data?.user.token)
-                setTimeout(() => {
-                window.location.href = "/"
-                }, 1250);
-            }
+      if(data.succes){
+        setSuuces(data.succes);
+        localStorage.setItem('token', data.user?.token)
 
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 1250);
 
-        }
-   
+      }
+
+      } catch (err) {
+        setError(data.error);
+      }
+    }
+
 
     return(
-      
-        <Container
+       
+        <Container onSubmit={handleSumbit} as="form"
 
         maxW="lg"
         py={{
@@ -152,12 +158,10 @@ import {
               <Stack spacing="5">
                 <FormControl>
                   <FormLabel>Name</FormLabel>
-                  <Input onChange={() => {
-                        setName(inputRef.current.value)
-                  }} ref={inputRef} id="name" type="text" />
-                
+                  <Input onChange={handleChange}
+                   ref={inputRef} id="name" type="text" />
                 </FormControl>
-                <PasswordField/>
+                <PasswordField onChange={handleChangeAcces} />
                 {error && <Alert status="error">
                 <AlertIcon />
                 <AlertTitle mr={2}>Error!</AlertTitle>
@@ -173,6 +177,7 @@ import {
                 <CloseButton onClick={handleCloseSucces} position="absolute" right="8px" top="8px" />
                 </Alert>
                 }
+
                 
               </Stack>
               <HStack justify="space-between">
@@ -182,7 +187,7 @@ import {
                 </Button>
               </HStack>
               <Stack spacing="6">
-                <Button onClick={handleLogin} color="primary">Sign in</Button>
+                <Button type="sumbit" color="primary">Sign in</Button>
                 <HStack>
                   <Divider />
                   <Text fontSize="sm" whiteSpace="nowrap" color="muted">

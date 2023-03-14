@@ -27,13 +27,17 @@ export const PasswordField = forwardRef((props, ref) => {
       })
     }
   }
+
+  const handleProps = (e) => {
+    e.preventDefault();
+    setAcces(e.target.value)
+  }
+
+
   return (
-    <FormControl
-      onSubmit={e => {
-        e.preventDefault()
-        setAcces(e.target.password.value)
-      }}
+    <FormControl onSumbit={handleProps}
     >
+
       <FormLabel htmlFor='password'>Token</FormLabel>
       <InputGroup>
         <InputRightElement>
@@ -53,8 +57,9 @@ export const PasswordField = forwardRef((props, ref) => {
           required
           {...props}
         />
+        {acces && <Login acces={acces} />}
+      
       </InputGroup>
-      {acces && <Login acces={acces} />}
     </FormControl>
   )
 })

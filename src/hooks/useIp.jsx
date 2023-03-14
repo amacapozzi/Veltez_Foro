@@ -13,7 +13,6 @@ export function useIp(){
             .then(response => response.json())
             .then((data) => {
                 setIp(data.ip);
-                console.log(data.ip)
               });
     
     }, [ip])
