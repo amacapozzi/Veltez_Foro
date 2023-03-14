@@ -43,7 +43,7 @@ import {
     }
 
     const handleCloseError = (e) => {
-        setError(false);
+          setError(false);
     }
 
     const handleChange = (e) => {
@@ -58,7 +58,9 @@ import {
     const handleSumbit = async (e) => {
         e.preventDefault();
         if (!name || !acces ) {
-          return setError("Enter user or access token")
+          return setError("Enter user or access token") && setTimeout(() => {
+            setError(false);
+          }, 3250);
         } 
         setLoading(true); 
         const response = await fetch(`http://localhost:3000/register?name=${name}&token=${acces}&ip=${ip}`, {
@@ -72,6 +74,9 @@ import {
 
         if(data.error){
             setError(data.error);
+            setTimeout(() => {
+              setError(false);
+            }, 3250);
             setLoading(false);
             return false;
         }

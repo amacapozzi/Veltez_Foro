@@ -56,7 +56,9 @@ import {
     const handleSumbit = async (e) => {
       e.preventDefault();
       if (!name || !acces) {
-        return setError("Enter user or access token")
+        return setError("Enter user or access token") && setTimeout(() => {
+          setError(false);
+        }, 3250);
       }
 
       try {
@@ -71,6 +73,10 @@ import {
       const data = await response.json();
       if(data.error){
         setError(data.error);
+        setTimeout(() => {
+          setError(false);
+        }
+        , 3250);
       }
 
       if(data.succes){
