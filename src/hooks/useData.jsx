@@ -35,6 +35,8 @@ export function useData() {
                     ip: data.ip,
                     date: data.date,
                     alias: data.alias,
+                    rol: data.rol,
+                    block: data.block,
                 })
 
 

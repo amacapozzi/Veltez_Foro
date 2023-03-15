@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+import { Progress } from "@chakra-ui/react";
 import { useData } from "../hooks/useData";
+import { Alert, AlertIcon } from "@chakra-ui/react";
 
 const Dashboard = () => {
     
     const logged = localStorage.getItem("token");
     const {user_info, error, loading} = useData();
-    
+    const [welcome, setWelcome] = useState(true);
+
     useEffect(() => {
         document.title = "Dashboard"
 
@@ -14,19 +17,32 @@ const Dashboard = () => {
         }
 
     }, [])
-  
+
+    useEffect(() =>{
+        setWelcome(true);
+        setTimeout(() => {
+            setWelcome(false);
+        }, 2350);
+    }, [])
+
+
 
     if(loading){
         return(
             <div>
-                <h1>Loading...</h1>
+              <Progress size='xs' isIndeterminate />
             </div>
         )
     }
 
     return(
         <div>
-            <h1>Welcole to dashboard {user_info.alias}</h1>
+             {welcome &&  <Alert right={90} padding={4} width={350} status='info'>
+    <AlertIcon />
+    Welcome to dashboard {user_info.alias}
+  </Alert>
+}
+            <h1>Welcole to dashboard {user_info.rol}</h1>
         </div>
     )
 }

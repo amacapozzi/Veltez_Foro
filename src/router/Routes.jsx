@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Error from "../pages/Error";
 import Dashboard from "../pages/Dashboard";
+import Admin from "../pages/Admin";
 
 const Router = () => {
     return(
@@ -14,6 +15,7 @@ const Router = () => {
                 <Route exact path="/login" element={<Login/>}/>
                 <Route exact path="/register" element={<Register/>}/>
                 <Route exact path="/dashboard" element={<Dashboard/>}/>
+                <Route exact path="/admin" element={<Admin/>}/>
                 <Route exact path="*" element={<Error/>}/>
 
             </Routes>
