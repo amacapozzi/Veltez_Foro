@@ -5,7 +5,7 @@ const Dashboard = () => {
     
     const logged = localStorage.getItem("token");
     const {user_info, error, loading} = useData();
-
+    
     useEffect(() => {
         document.title = "Dashboard"
 
@@ -14,6 +14,7 @@ const Dashboard = () => {
         }
 
     }, [])
+  
 
     if(loading){
         return(

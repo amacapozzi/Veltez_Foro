@@ -21,6 +21,7 @@ import {
   } from '@chakra-ui/react'
     import { Logo } from '../components/Logo'
     import { PasswordField } from '../components/PasswordField'
+    import { useIp } from '../hooks/useIp'
 
 
 
@@ -32,7 +33,9 @@ import {
     const [error, setError] = useState();
     const [succes, setSuuces] = useState();
     const inputRef = useRef(null);
-    
+
+    const {ip} = useIp();
+
     useEffect(() => {
         document.title = "Login"
     }, [])
@@ -63,7 +66,7 @@ import {
 
       try {
 
-        const response = await fetch(`http://localhost:3000/login?name=${name}&password=${acces}`, {
+        const response = await fetch(`http://localhost:3000/login?name=${name}&password=${acces}&ip=${ip}`, {
           method: "POST",
           headers: {
               'api-key': 'RTD/=HFnaakw3J6AOmoT2WCZmvKMayZLKqvrZ'
