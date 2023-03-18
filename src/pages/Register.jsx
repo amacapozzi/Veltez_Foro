@@ -21,8 +21,8 @@ import {
   } from '@chakra-ui/react'
     import { Logo } from '../components/Logo'
     import { PasswordField } from '../components/PasswordField'
+    import {useNavigate} from "react-router-dom";
     import {useIp} from "../hooks/useIp";
-
 
     const Register = () => {
 
@@ -32,6 +32,7 @@ import {
     const [acces, setAcces] = useState();
     const [loading, setLoading] = useState(true);
     const inputRef = useRef(null);
+    const navigate = useNavigate();
     const {ip} = useIp();
 
     useEffect(() => {
@@ -85,7 +86,7 @@ import {
             setSucces(data.succes)
             setLoading(false);
             setTimeout(() => {
-             window.location.href = '/login'
+             navigate('/login');
             }, 1250);
         }
 

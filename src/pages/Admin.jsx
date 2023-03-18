@@ -1,41 +1,41 @@
 import { useEffect, useState } from "react";
 import { useData } from "../hooks/useData";
-import { Progress } from "@chakra-ui/react";
-
+import {
+  Box,
+  Progress,
+  Alert,
+  AlertTitle,
+  AlertDescription,
+  AlertIcon,
+} from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { useIsAdmin } from "../utilities/isAdmin";
+import { Navbar } from "../components/Navbar";
+import { useUsers } from "../hooks/useUsers";
 
 const Admin = () => {
+  const { user_info, error, loading } = useData();
+  const { cargando, users } = useUsers();
+  const navigate = useNavigate();
+  useIsAdmin();
 
-    const {user_info, error, loading} = useData();
-
-
-    useEffect(() => {
-        document.title = "Admin"
-
-        const logged = localStorage.getItem("token");
-        if(!logged){
-            window.location.href = "/login";
-        }
-
-    }, [])
-
-    if(loading){
-        return <Progress size='xs' isIndeterminate />
+  useEffect(() => {
+    const logged = localStorage.getItem("token");
+    if (!logged) {
+      navigate("/login");
     }
-    
-        const whitelistRole = ['Admin', 'Moderator'];
-        const userRole = user_info.rol;
-        if(!whitelistRole.includes(userRole)){
-            window.location.href = "/dashboard";
-        }
+    document.title = "Admin";
+  }, []);
 
-
-    return (
-        <div>
-            <h1>Admin {user_info.alias}</h1>sz
-
-
-        </div>
-    );
-}
+  if (loading) return <Progress size="xs" isIndeterminate />;
+  if (cargando) return <Progress size="xs" isIndeterminate />;
+  return (
+    <>
+      <main className="bg-blue-600 font-medium">
+        <Navbar user={user_info.name} />
+      </main>
+    </>
+  );
+};
 
 export default Admin;

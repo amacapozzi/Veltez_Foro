@@ -22,6 +22,7 @@ import {
     import { Logo } from '../components/Logo'
     import { PasswordField } from '../components/PasswordField'
     import { useIp } from '../hooks/useIp'
+    import {useNavigate} from "react-router-dom";
 
 
 
@@ -32,13 +33,16 @@ import {
     const [acces, setAcces] = useState();
     const [error, setError] = useState();
     const [succes, setSuuces] = useState();
+    const [credentials, setCredentials] = useState('');
     const inputRef = useRef(null);
+    const navigate = useNavigate();
 
     const {ip} = useIp();
 
     useEffect(() => {
         document.title = "Login"
     }, [])
+
 
     const handleCloseError = (e) => {
         setError(false)
@@ -87,7 +91,7 @@ import {
         localStorage.setItem('token', data.user?.token)
 
         setTimeout(() => {
-          window.location.href = '/dashboard';
+           navigate('/dashboard')
         }, 1250);
 
       }
@@ -190,7 +194,7 @@ import {
                 
               </Stack>
               <HStack justify="space-between">
-                <Checkbox defaultChecked>Remember me</Checkbox>
+                <Checkbox defaultChecked>Save credentials</Checkbox>
                 <Button variant="link" colorScheme="blue" size="sm">
                   Forgot token?
                 </Button>
