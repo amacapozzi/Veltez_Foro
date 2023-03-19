@@ -14,18 +14,16 @@ import React, { useState, useEffect } from "react";
 import { useUsers } from "../hooks/useUsers";
 import { ModalDeleteUser } from "./ModalDeleteUser";
 
-
-export const TableAdmin = ({newUsers}) => {
+export const TableAdmin = ({ newUsers }) => {
   const { cargando, users } = useUsers();
   const [modalDelete, setModalDelete] = useState(false);
   const [usuario, setUsuario] = useState({});
   if (cargando) return <Progress size="xs" isIndeterminate />;
 
-
   return (
     <div>
       <Box
-        rounded={"md"}                     
+        rounded={"md"}
         w="100%"
         p={4}
         color="gray.200"
@@ -82,7 +80,11 @@ export const TableAdmin = ({newUsers}) => {
                         onClose={() => setModalDelete(false)}
                       />
                     )}
-                    <Tag colorScheme="blue">EDIT</Tag>{" "}
+                    {user.banned === true ? (
+                      <Tag colorScheme="red">BANNED</Tag>
+                    ) : (
+                      <Tag colorScheme="blue">BAN</Tag>
+                    )}
                   </Th>
                 </Tr>
               );
