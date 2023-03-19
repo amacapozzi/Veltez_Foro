@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useData } from "../hooks/useData";
+import { TableAdmin } from "../components/TableAdmin";
 import {
   Box,
   Progress,
@@ -31,9 +32,10 @@ const Admin = () => {
   if (cargando) return <Progress size="xs" isIndeterminate />;
   return (
     <>
-      <main className="bg-blue-600 font-medium">
+
         <Navbar user={user_info.name} />
-      </main>
+        <TableAdmin/>
+    
     </>
   );
 };

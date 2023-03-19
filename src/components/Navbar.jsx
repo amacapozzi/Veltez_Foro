@@ -3,7 +3,7 @@ import { ModalCreateToken } from "./modalCreateToken";
 import { useState } from "react";
 import { tokenCreate } from "../utilities/tokenCreate";
 import { useAdmins } from "../hooks/useAdmins";
-import { Tag } from "@chakra-ui/react";
+import { Avatar, Tag } from "@chakra-ui/react";
 
 export const Navbar = ({ user }) => {
   const navigate = useNavigate();
@@ -89,7 +89,7 @@ export const Navbar = ({ user }) => {
                   key={admin.id}
                   class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-blue-600"
                 >
-                  <i class="bi bi-people-fill"></i>
+                  <Avatar size="sm" name={admin.name} />
                   <div class="flex justify-between w-full items-center">
                     <span class="text-[15px] ml-4 text-gray-200">
                       <Tag colorScheme="blue">

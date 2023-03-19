@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Progress } from "@chakra-ui/react";
+import { Box, Progress } from "@chakra-ui/react";
 import { useData } from "../hooks/useData";
 import { useNavigate } from "react-router-dom";
+
 
 
 const Dashboard = () => {
@@ -32,7 +33,6 @@ const Dashboard = () => {
     return(
         <div>
             <h1>Welcole to dashboard {user_info.alias}</h1>
-        
         </div>
 
 
