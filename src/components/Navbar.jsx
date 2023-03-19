@@ -14,12 +14,16 @@ export const Navbar = ({ user }) => {
   if (esperando) return <div></div>;
 
   const handleHome = () => {
-    navigate("/dashboard");
+    navigate("/admin");
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
+  };
+
+  const handleTokens = () => {
+    navigate(`/admin/tokens`);
   };
 
   const handleOpenNav = () => {
@@ -66,7 +70,9 @@ export const Navbar = ({ user }) => {
                 Home
               </span>
             </div>
-            <div class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-blue-600">
+            <div
+             onClick={handleTokens}
+             class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-blue-600">
             <i class="bi bi-person-lines-fill"></i>
               <span class="text-[15px] ml-4 text-gray-200">
                 Tokens
@@ -91,7 +97,7 @@ export const Navbar = ({ user }) => {
             {admins.map((admin) => {
               return (
                 <div
-                  key={admin.id}
+                  key={admin.name}
                   class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-blue-600"
                 >
                   <Avatar size="sm" name={admin.name} />

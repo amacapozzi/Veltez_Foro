@@ -16,20 +16,20 @@ import { ModalDeleteUser } from "./ModalDeleteUser";
 
 export const TableAdmin = ({ newUsers }) => {
   const { cargando, users } = useUsers();
+  const [newUser, setNewUser] = useState([]);
   const [modalDelete, setModalDelete] = useState(false);
   const [usuario, setUsuario] = useState({});
   if (cargando) return <Progress size="xs" isIndeterminate />;
 
+  const handleNewList = (user) => {
+    const newList = users.filter((username) => username.name !== user.name);
+    console.log(newList);
+    setNewUser(newList);
+  };
+
   return (
     <div>
-      <Box
-        rounded={"md"}
-        w="100%"
-        p={4}
-        color="gray.200"
-        height={"95vh"}
-        bg="gray.900"
-      >
+      <Box rounded={"md"} w="100%" p={4} color="gray.200" bg="gray.900">
         <Table variant="simple">
           <Thead>
             <Tr textColor="white">
@@ -66,8 +66,9 @@ export const TableAdmin = ({ newUsers }) => {
                     {" "}
                     <Tag
                       onClick={() => {
-                        setModalDelete(true);
                         setUsuario(user.name);
+                        setModalDelete(true);
+                        handleNewList(user);
                       }}
                       colorScheme="red"
                     >

@@ -41,7 +41,7 @@ export function ModalDeleteUser({ id, username, onClose }) {
             </AlertDialogHeader>
 
             <AlertDialogBody>
-             ¿Are you sure you want to delete the user <Tag>{username}</Tag>?
+             ¿Are you sure you want to delete the user {username}?
             </AlertDialogBody>
 
             <AlertDialogFooter>
