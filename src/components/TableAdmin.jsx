@@ -12,12 +12,14 @@ import {
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { useUsers } from "../hooks/useUsers";
+import { ModalBanUser } from "./ModalBanUser";
 import { ModalDeleteUser } from "./ModalDeleteUser";
 
 export const TableAdmin = ({ newUsers }) => {
   const { cargando, users } = useUsers();
   const [newUser, setNewUser] = useState([]);
   const [modalDelete, setModalDelete] = useState(false);
+  const [modalBan, setModalBan] = useState(false);
   const [usuario, setUsuario] = useState({});
   if (cargando) return <Progress size="xs" isIndeterminate />;
 
@@ -82,9 +84,24 @@ export const TableAdmin = ({ newUsers }) => {
                       />
                     )}
                     {user.banned === true ? (
-                      <Tag colorScheme="red">BANNED</Tag>
+                      <Tag colorScheme="red">UNBAN</Tag>
                     ) : (
-                      <Tag colorScheme="blue">BAN</Tag>
+                      <Tag
+                        onClick={() => {
+                          setUsuario(user.name);
+                          setModalBan(true);
+                          <Tag colorScheme="red">UNBAN</Tag>;
+                        }}
+                        colorScheme="blue"
+                      >
+                        BAN
+                      </Tag>
+                    )}
+                    {modalBan && (
+                      <ModalBanUser
+                        user={usuario}
+                        onClose={() => setModalBan(false)}
+                      />
                     )}
                   </Th>
                 </Tr>
