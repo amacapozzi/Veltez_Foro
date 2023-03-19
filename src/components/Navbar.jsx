@@ -60,24 +60,29 @@ export const Navbar = ({ user }) => {
               />
             </div>
 
-            <div class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-blue-600">
+            <div onClick={handleHome} class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-blue-600">
               <i class="bi bi-house-door-fill"></i>
-              <span onClick={handleHome} class="text-[15px] ml-4 text-gray-200">
+              <span class="text-[15px] ml-4 text-gray-200">
                 Home
               </span>
             </div>
             <div class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-blue-600">
+            <i class="bi bi-person-lines-fill"></i>
+              <span class="text-[15px] ml-4 text-gray-200">
+                Tokens
+              </span>
+            </div>
+            <div  onClick={() => setCreateToken(true)} class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-blue-600">
               <i class="bi bi-plus-circle"></i>
               <span
-                onClick={() => setCreateToken(true)}
                 class="text-[15px] ml-4 text-gray-200"
               >
                 Create token
               </span>
-              {createToken && (
+            </div>
+            {createToken && (
                 <ModalCreateToken onClose={() => setCreateToken(false)} />
               )}
-            </div>
             <hr class="my-4 text-gray-600" />
             <div class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-blue-600">
               <i class="bi bi-envelope-fill"></i>
@@ -104,10 +109,9 @@ export const Navbar = ({ user }) => {
               class=" leading-7 text-left text-sm font-thin mt-2 w-4/5 mx-auto font-medium "
               id="submenu"
             ></div>
-            <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-blue-600">
+            <div onClick={handleLogout} class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-blue-600">
               <i class="bi bi-box-arrow-in-right"></i>
               <span
-                onClick={handleLogout}
                 class="text-[15px] ml-4 text-gray-200"
               >
                 Logout
