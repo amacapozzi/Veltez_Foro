@@ -48,3 +48,10 @@
   justify-content: center;
   height: 85vh;
 }
+
+::-webkit-scrollbar {
+  scroll-behavior: smooth;
+  width: 0.5rem;
+  background-color: #88888850;
+}
+
