@@ -23,6 +23,7 @@ import {
     import { PasswordField } from '../components/PasswordField'
     import {useNavigate} from "react-router-dom";
     import {useIp} from "../hooks/useIp";
+    import {isVpn} from "../utilities/isVpn";
 
     const Register = () => {
 

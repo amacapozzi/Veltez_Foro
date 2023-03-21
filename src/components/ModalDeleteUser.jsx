@@ -17,7 +17,7 @@ import {
 import { deleteUser } from "../utilities/deleteUser";
 import { TableAdmin } from "./TableAdmin";
 
-export function ModalDeleteUser({ id, username, onClose }) {
+export function ModalDeleteUser({ id, username, onClose, onDeleted }) {
   const cancelRef = React.useRef();
   const { succes, error, handleDeleteUser } = deleteUser(id);
 
@@ -48,7 +48,7 @@ export function ModalDeleteUser({ id, username, onClose }) {
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme="red" onClick={handleDeleteUser} ml={3}>
+              <Button colorScheme="red" onClick={() => handleDeleteUser(onDeleted)} ml={3}>
                 Yes
               </Button>
             </AlertDialogFooter>

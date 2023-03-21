@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TableAdmin } from "../components/TableAdmin";
 import { useUsers } from "../hooks/useUsers";
 
@@ -6,8 +6,11 @@ export function deleteUser(id) {
   const [error, setError] = useState(false);
   const [succes, setSucces] = useState(false);
   const { users } = useUsers();
+  
+  useEffect(() => {
 
-  const handleDeleteUser = async (e) => {
+  },[])
+  const handleDeleteUser = async ({onDeleted}) => {
     const response = await fetch(`http://localhost:3000/api/delete?id=${id}`, {
       method: "DELETE",
       headers: {
@@ -28,9 +31,11 @@ export function deleteUser(id) {
       setSucces(true) &&
         setTimeout(() => {
           setSucces(false);
+          onDeleted();
         }, 3250);
     }
   };
 
+  
   return { error, succes, handleDeleteUser };
 }

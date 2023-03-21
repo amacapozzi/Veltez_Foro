@@ -9,6 +9,7 @@ import {
   Td,
   Tag,
   Avatar,
+  position,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { useUsers } from "../hooks/useUsers";
@@ -57,7 +58,7 @@ export const TableAdmin = ({ newUsers }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {users.map((user) => {
+            {users.slice().map((user) => {
               return (
                 <Tr key={user.name}>
                   <Th borderColor="gray.600">{user.name}</Th>
@@ -77,9 +78,10 @@ export const TableAdmin = ({ newUsers }) => {
                       DELETE
                     </Tag>{" "}
                     {modalDelete && (
-                      <ModalDeleteUser
+                      <ModalDeleteUser 
                         id={usuario}
                         username={usuario}
+                        onDeleted={handleNewList}
                         onClose={() => setModalDelete(false)}
                       />
                     )}
